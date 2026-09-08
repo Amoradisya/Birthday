@@ -1,0 +1,392 @@
+<!DOCTYPE html> 
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Selamat Ulang Tahun, Mba Anita 🌸</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Dancing+Script:wght@600&family=Great+Vibes&family=Playfair+Display:ital,wght@1,600;1,700&family=Poppins:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+    <!-- Container Guguran Latar Belakang & Kelopak -->
+    <div id="particles-container"></div>
+
+    <!-- Container Ledakan Bunga (Muncul Saat Kado Dibuka) -->
+    <div id="flower-burst-container"></div>
+
+    <!-- ==========================================
+         TAHAP 1: LOADING SCREEN AWAL
+         ========================================== -->
+    <div class="loading-wrapper" id="loadingWrapper">
+        <div class="flower-icon spinner">🌸</div>
+        <div class="loading-text">Menyiapkan sesuatu yang spesial untuk kamu...</div>
+    </div>
+
+    <!-- ==========================================
+         TAHAP 2: SCREEN PIN / KEYPAD
+         ========================================== -->
+    <div class="content-wrapper hidden" id="contentWrapper">
+        <div class="flower-icon top-flower">🌸</div>
+        <div class="pin-card" id="pinCard">
+            <h2>Untuk Mba Anita, Calon Ibu Terhebat</h2>
+            <p class="subtitle">🌸 Your Pass is Your Birthday, Mba 🌸</p>
+
+            <div class="pin-dots">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <div class="keypad">
+                <button class="key" onclick="pressNum('1')">1</button>
+                <button class="key" onclick="pressNum('2')">2</button>
+                <button class="key" onclick="pressNum('3')">3</button>
+                <button class="key" onclick="pressNum('4')">4</button>
+                <button class="key" onclick="pressNum('5')">5</button>
+                <button class="key" onclick="pressNum('6')">6</button>
+                <button class="key" onclick="pressNum('7')">7</button>
+                <button class="key" onclick="pressNum('8')">8</button>
+                <button class="key" onclick="pressNum('9')">9</button>
+                <button class="key action-btn" onclick="clearPin()">✕</button>
+                <button class="key" onclick="pressNum('0')">0</button>
+                <button class="key enter-btn" onclick="submitPin()">↵</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         TAHAP 3: SCREEN KOTAK HADIAH / KADO
+         ========================================== -->
+    <div class="gift-wrapper hidden" id="giftWrapper">
+        <p class="gift-instruction">Ketuk kotak hadiah untuk membukanya 🎁</p>
+        
+        <div class="gift-container-png" id="purpleGift" onclick="openGift()">
+            <img src="gift.png" alt="Kotak Hadiah" class="gift-img-png">
+        </div>
+    </div>
+
+    <!-- ==========================================
+         TAHAP 4: HALAMAN UTAMA (BIRTHDAY CARD & MUSIC)
+         ========================================== -->
+    <div class="main-card-wrapper hidden" id="mainCardWrapper">
+        <div class="container initial-fade-in">
+            
+            <!-- SEKSI 1: KUE & TITLE -->
+            <section class="section-hero scroll-fade-section">
+                <small class="subtitle">🌸 TODAY IS YOUR SPECIAL DAY 🌸</small>
+                
+                <div class="header-title-box">
+                    <span class="happy-text">Happy</span>
+                    <span class="script-font">Birthday</span>
+                    <span class="tnr-font">✦ Anita ✦</span>
+                </div>
+                
+                <small class="date">SEPTEMBER 07 • THE MOST SPECIAL DAY</small>
+
+                <div class="instruction-badge" id="candleBadge">
+                    Tap setiap lilin satu per satu! 🎂 (0/3)
+                </div>
+
+                <div class="cake-section">
+                    <div class="cake-wrapper">
+                        <div class="candles-row">
+                            <div class="candle-item" data-index="1" onclick="blowCandle(1)">
+                                <div class="flame" id="flame-1"></div>
+                                <div class="stick"></div>
+                            </div>
+                            <div class="candle-item" data-index="2" onclick="blowCandle(2)">
+                                <div class="flame" id="flame-2"></div>
+                                <div class="stick"></div>
+                            </div>
+                            <div class="candle-item" data-index="3" onclick="blowCandle(3)">
+                                <div class="flame" id="flame-3"></div>
+                                <div class="stick"></div>
+                            </div>
+                        </div>
+
+                        <div class="cake-3-tier">
+                            <div class="tier tier-top">
+                                <div class="bubbles"><span></span><span></span><span></span><span></span></div>
+                            </div>
+                            <div class="tier tier-middle">
+                                <div class="bubbles"><span></span><span></span><span></span><span></span><span></span></div>
+                            </div>
+                            <div class="tier tier-bottom">
+                                <div class="bubbles"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-card">
+                    <p class="message-title">Congrats Repeat Year! Mba Anita yang paling istimewa 🌸</p>
+                    <p class="message-text">DENGAN CANGKIR KASIH YANG PENUH</p>
+                </div>
+
+                <div class="scroll-hint">
+                    <span>↓ Scroll ke bawah untuk membaca surat ↓</span>
+                </div>
+            </section>
+
+            <!-- SEKSI 2: A LETTER FOR YOU -->
+            <section class="section-letter scroll-fade-section">
+                <div class="letter-badge">— A LETTER FOR YOU —</div>
+                
+                <div class="letter-paper">
+                    <span class="letter-date">07 SEPTEMBER</span>
+                    <h2 class="letter-greeting">🌸 Buat Calon Ibu Terhebat 🌸</h2>
+                    
+                    <p>"Di hari yang paling istimewa ini..., sorry aku ga pandai merangkai kata emosional si mba. Tapi aku cuma pengen kamu tahu kalau aku amat sangat berterimakasih atas segala arahan, bimbingan, teguran dan segala hal yang menuntun aku dari yang serba salah, belajar menjadi lebih baik."</p>
+                    
+                    <p>"Kalau boleh jujur, kadang emang kamu nakutin sih mba. Tapi mba... Tapi lohh... diantara kamu sama Mba vivi, pemilihan kalimat kamu yang paling mudah aku pahami waktu ngejelasin. Cuma maaf ya mba, dengan informasi seabrek itu, aku harus belajar upgrade penyimpanan memori di kepala ku... karena aku orang e gampang salah memilah, gampang lupa, dan gampang.... berlogika ngawur. MAAFKAN HUHUUUUU..."</p>
+                    
+                    <p>"Overall, kamu TERBAIK sih Mba!!! Terimakasih ya mba sudah sabar, sudah tetap jadi diri kamu sendiri — dengan segala keunikan kamu, kelembutan hati kamu (calon ibu ye khann), dan semangat kamu yang ngga pernah pudar. Mba Anita itu role model utama untuk mengerti arti tanggung jawab dalam sebuah pekerjaan. (Pak Gagas pernah bilang hehe...)."</p>
+                </div>
+            </section> 
+
+            <!-- SEKSI 3: DIGITAL BOUQUET -->
+            <section class="section-bouquet scroll-fade-section">
+                <div class="bouquet-badge">— MY FIRST GIFT —</div>
+                <h2 class="bouquet-title">Digital Bouquet</h2>
+                <p class="bouquet-subtitle">Setiap bunga menyimpan pesan kecil untukmu</p>
+
+                <div class="bouquet-wrapper">
+                    <div class="flowers-row">
+                        <div class="flower-item f-1" data-msg="Semoga selalu ada alasan buat Mba Anita tersenyum setiap hari 🌷" onclick="clickFlower(this)">
+                            <div class="flower-head">🌷</div>
+                        </div>
+                        <div class="flower-item f-2" data-msg="Terima kasih karena selalu sabar menghadapi manusia yang baru terjun dunia kerja ini 🌹" onclick="clickFlower(this)">
+                            <div class="flower-head">🌹</div>
+                        </div>
+                        <div class="flower-item f-3" data-msg="Semoga hari-hari mu penuh kebahagiaan & cinta ya Mba 🌻" onclick="clickFlower(this)">
+                            <div class="flower-head">🌻</div>
+                        </div>
+                        <div class="flower-item f-4" data-msg="Tetaplah bersinar cantik seperti dirimu (MAHOOKKK) 🌺" onclick="clickFlower(this)">
+                            <div class="flower-head">🌺</div>
+                        </div>
+                        <div class="flower-item f-5" data-msg="Hope your day is as good as your presence 🌸" onclick="clickFlower(this)">
+                            <div class="flower-head">🌸</div>
+                        </div>
+                    </div>
+
+                    <svg class="stems-svg" viewBox="0 0 300 180">
+                        <line x1="30"  y1="25" x2="150" y2="175" stroke="#709775" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="90"  y1="10" x2="150" y2="175" stroke="#709775" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="150" y1="5"  x2="150" y2="175" stroke="#709775" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="210" y1="10" x2="150" y2="175" stroke="#709775" stroke-width="3.5" stroke-linecap="round"/>
+                        <line x1="270" y1="25" x2="150" y2="175" stroke="#709775" stroke-width="3.5" stroke-linecap="round"/>
+                    </svg>
+
+                    <div class="flower-pot"></div>
+                </div>
+
+                <div class="flower-toast" id="flowerToast">
+                    <span id="toastText">Tap salah satu bunga di atas! ✨</span>
+                </div>
+            </section>
+
+            <!-- SEKSI 4: GALLERY MEMORIES -->
+            <section class="section-gallery scroll-fade-section">
+                <div class="gallery-badge">— OUR MEMORIES —</div>
+                <h2 class="gallery-title">Memories Gallery</h2>
+                <p class="gallery-subtitle">Ketuk setiap kartu untuk mengungkap momen indah</p>
+
+                <div class="gallery-grid">
+                    <div class="memory-card" data-img="image1.jpeg" data-title="2nd Time Kita Seframe" data-desc="Fotonya bagus ajaa gituu (if u want to change it, just tell me)." onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 1">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-card" data-img="image2.jpeg" data-title="Take It or Leave It" data-desc="Dan aku milih take it xixi... lucunya Jenaaa" onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 2">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-card" data-img="image3.jpeg" data-title="Like One Take or Nothing" data-desc="Omooo, can i say something like semicolone? yeah IT'S YOUUUUUU!!!" onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 3">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-card" data-img="image4.jpeg" data-title="Hari yang Cerah" data-desc="Demi biar ga Backlight, kita rela mantengi matahari wkwkk." onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 4">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-card" data-img="image5.jpeg" data-title="Deadline Foto Absensi" data-desc="Agak gimana gitu yach foto satu ini ku kirim bu Fresthy." onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 5">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="memory-card" data-img="image6.jpeg" data-title="Rush Hour Today" data-desc="Capek sii... tapi seneng juga... semangat terus yakkk mba, i think, you are the main role in this situation xixixi" onclick="revealMemory(this)">
+                        <div class="card-placeholder">
+                            <span class="cam-icon">📷</span>
+                            <span class="reveal-text">Ketuk untuk mengungkap</span>
+                        </div>
+                        <div class="card-polaroid">
+                            <img class="polaroid-img" src="" alt="Memory 6">
+                            <div class="polaroid-caption">
+                                <h4 class="polaroid-title"></h4>
+                                <p class="polaroid-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEKSI 5: JAR OF GRATITUDE -->
+            <section class="section-jar scroll-fade-section">
+                <div class="jar-badge">— FROM MY HEART TO YOURS —</div>
+                <h2 class="jar-title">Reasons I'm Grateful To Know You</h2>
+                <p class="jar-subtitle">Kocok toples dan ambil sebuah catatan 📑</p>
+
+                <div class="jar-container" id="jarContainer">
+                    <div class="jar-glass" id="jarGlass">
+                        <div class="jar-lid"></div>
+                        <div class="jar-body">
+                            <div class="paper-folded p1"></div>
+                            <div class="paper-folded p2"></div>
+                            <div class="paper-folded p3"></div>
+                            <div class="paper-folded p4"></div>
+                            <div class="paper-folded p5"></div>
+                            <div class="paper-folded p6"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="shake-jar-btn" id="shakeJarBtn" onclick="shakeJar()">
+                    🫙 Kocok toplesnya
+                </button>
+
+                <div class="note-card-inline" id="noteModal">
+                    <div class="note-card-content">
+                        <span class="note-icon">💫</span>
+                        <p class="note-text" id="noteText">"Senang kenal kamu deh Mba..."</p>
+                        <span class="note-counter" id="noteCounter">CATATAN 1 DARI 8</span>
+                    </div>
+                </div>
+            </section> 
+
+            <!-- SEKSI 6: MUSIC PLAYER -->
+            <section class="section-music scroll-fade-section">
+                <h2 class="music-header-title">OUR MUSIC</h2>
+                <div class="music-badge">— FAVORITE SOUNDTRACKS —</div>
+                
+                <div class="music-player-card">
+                    <div class="vinyl-container">
+                        <div class="vinyl-record" id="vinylRecord">
+                            <div class="vinyl-center"></div>
+                        </div>
+                    </div>
+
+                    <div class="song-info">
+                        <h3 class="song-title" id="songTitle">Bergema Sampai Selamanya</h3>
+                        <p class="song-artist" id="songArtist">Nadhif Basalamah</p>
+                    </div>
+
+                    <div class="progress-container">
+                        <span class="time-text" id="currentTime">0:00</span>
+                        <input type="range" id="progressBar" value="0" min="0" max="100">
+                        <span class="time-text" id="durationTime">0:00</span>
+                    </div>
+
+                    <div class="player-controls">
+                        <button class="control-btn" id="prevBtn" onclick="prevTrack()">⏮</button>
+                        <button class="control-btn play-btn" id="playBtn" onclick="togglePlay()">▶</button>
+                        <button class="control-btn" id="nextBtn" onclick="nextTrack()">⏭</button>
+                    </div>
+
+                    <div class="playlist">
+                        <div class="track-item active" data-index="0" onclick="selectTrack(0)">
+                            <span class="track-num">1</span>
+                            <div class="track-details">
+                                <span class="track-name">Bergema Sampai Selamanya</span>
+                                <span class="track-singer">Nadhif Basalamah</span>
+                            </div>
+                            <span class="track-icon">🌸</span>
+                        </div>
+
+                        <div class="track-item" data-index="1" onclick="selectTrack(1)">
+                            <span class="track-num">2</span>
+                            <div class="track-details">
+                                <span class="track-name">Perahu Kertas</span>
+                                <span class="track-singer">Tulus</span>
+                            </div>
+                            <span class="track-icon">🌸</span>
+                        </div>
+
+                        <div class="track-item" data-index="2" onclick="selectTrack(2)">
+                            <span class="track-num">3</span>
+                            <div class="track-details">
+                                <span class="track-name">1000x</span>
+                                <span class="track-singer">Ghea Indrawari</span>
+                            </div>
+                            <span class="track-icon">🌸</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sesuaikan ekstensi audio dengan milikmu (.mp3 atau .mp4) -->
+                <audio id="audioPlayer" src="bergema-sampai-selamanya.mp4"></audio>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
